@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "993084750573",
+    "project_id": "sworld-8dbba",
+    "storage_bucket": "sworld-8dbba.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:993084750573:android:55a2b3fa24312bb545aae4",
+        "android_client_info": {
+          "package_name": "com.example.sworld_flutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDy7bz5hyij2zhsbbH4QLVW2cZbubVBSd4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,11 @@
+<svg id="icon_bulletin_board_globe" data-name="icon / bulletin board / globe" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60">
+  <g id="button_-_globe" data-name="button - globe">
+    <g id="Oval" fill="#f70031" stroke="#161616" stroke-miterlimit="10" stroke-width="1.5">
+      <circle cx="30" cy="30" r="30" stroke="none"/>
+      <circle cx="30" cy="30" r="29.25" fill="none"/>
+    </g>
+    <g id="icon_-_globe" data-name="icon - globe" transform="translate(18 18)">
+      <path id="Shape" d="M0,12A12,12,0,1,1,12,24,12.013,12.013,0,0,1,0,12Z" fill="#fff" stroke="#161616" stroke-miterlimit="10" stroke-width="1"/>
+    </g>
+  </g>
+</svg>

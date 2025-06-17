@@ -1,0 +1,93 @@
+@font-face {
+  font-family: 'honur';
+  src:  url('fonts/honur.eot?85u3y1');
+  src:  url('fonts/honur.eot?85u3y1#iefix') format('embedded-opentype'),
+    url('fonts/honur.ttf?85u3y1') format('truetype'),
+    url('fonts/honur.woff?85u3y1') format('woff'),
+    url('fonts/honur.svg?85u3y1#honur') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+i.icon-honour-flag, i.icon-honour {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'honur' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-honour-flag, .icon-honour{
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.adventurer{
+  background-image: url('./honour adventurer.svg');
+}
+.batman{
+  background-image: url('./honour batman.svg');
+}
+.cosmopolite{
+  background-image: url('./honour cosmopolite.svg');
+}
+.explorer{
+  background-image: url('./honour explorer.svg');
+}
+.gadabout{
+  background-image: url('./honour gadabout.svg');
+}
+.globetrotter{
+  background-image: url('./honour globetrotter.svg');
+}
+.intrepid-daredevil{
+  background-image: url('./honour intrepid-daredevil.svg');
+}
+.peregrinator{
+  background-image: url('./honour peregrinator.svg');
+}
+.scout{
+  background-image: url('./honour scout.svg');
+}
+.swashbuckler{
+  background-image: url('./honour swashbuckler.svg');
+}
+.flag-black{
+  background-image: url('./flag black.svg');
+}
+.flag-grey{
+  background-image: url('./flag  grey.svg');
+}
+.flag-red{
+  background-image: url('./flag  red.svg');
+}
+.pinball{
+  background-image: url('./paintball.svg');
+}
+.flower{
+  background-image: url('./flowers.svg');
+}
+.pow{
+  background-image: url('./paw.svg');
+}
+.call{
+  background-image: url('./call.svg');
+}
+.treasure{
+  background-image: url('./treasure chest.svg');
+}
+
+.icon-honour:before {
+  content: "\e900";
+}
+.icon-honour-flag:before {
+  content: "\e991";
+}
+

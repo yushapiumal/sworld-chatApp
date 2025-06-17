@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?> 
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="627 573.954 501 117.046" width="501pt" height="117.046pt"><defs>
+<clipPath id="_clipPath_RKT5lNXDJj1ElcB2gAnRjTq10wXvDoKY"><rect x="627" y="573.954" width="501" height="117.046"/></clipPath></defs>
+<g clip-path="url(#_clipPath_RKT5lNXDJj1ElcB2gAnRjTq10wXvDoKY)"><path d=" M 1128 645 Q 1087.823 592.231 1039.377 578.656 C 1017.813 572.614 995.021 572.395 971 578 C 838.988 608.803 805.045 670.727 715 645 Q 659 629 627 578 L 627 691 L 1128 691 L 1128 645 Z "  fill={props.fill} /></g>
+</svg>

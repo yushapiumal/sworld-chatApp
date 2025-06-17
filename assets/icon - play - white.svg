@@ -1,0 +1,6 @@
+<svg id="icon_play_white" data-name="icon / play / white" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
+  <g id="button_-_play" data-name="button - play">
+    <circle id="Oval" cx="25" cy="25" r="25" fill="#fff"/>
+    <path id="Path" d="M0,0V14L12,7Z" transform="translate(19 18)" fill="#f70031"/>
+  </g>
+</svg>

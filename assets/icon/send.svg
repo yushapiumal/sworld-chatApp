@@ -1,0 +1,8 @@
+<svg id="send" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
+  <g id="button">
+    <rect id="Rectangle" width="50" height="50" fill="#c8102e"/>
+    <g id="icon_-_send" data-name="icon - send" transform="translate(13 13)">
+      <path id="Shape" d="M14.225,19.352l-4.675-3.1-3.6,1.656-1.15.553V12.677L1.075,9.988,0,9.22l1.2-.528L18.5.7,20,0l-.374,1.561L15.45,18.9,15.175,20Z" transform="translate(2 2)" fill="#fff"/>
+    </g>
+  </g>
+</svg>
