@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:sworld_flutter/page/chat_app/screens/home_screen.dart';
+import 'package:sworld_flutter/page/zoom_app.dart/zoom.dart';
 
 
 class LoginPage extends StatefulWidget {
@@ -217,7 +217,9 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                       onPressed: () async {
                                         _controller1.forward().then(
                                             (_) => _controller1.reverse());
-                                            Navigator.pushReplacementNamed(context, ChatHomeScreen.routeName);
+                                            Navigator.pushReplacementNamed(context, ZoomScreen.routeName);
+                                          //  Navigator.pushReplacementNamed(context, ChatScreen.routeName);
+
                                       },
                                       child: const Text('LOGIN',
                                           style:

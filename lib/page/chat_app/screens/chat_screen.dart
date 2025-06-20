@@ -54,7 +54,6 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Future<void> _loadUserNames() async {
-    // Fetch names for all users in the chat
     for (var user in widget.chat.users) {
       if (!userNames.containsKey(user.id)) {
         final userDoc = await _firestore.collection('users').doc(user.id).get();
@@ -165,71 +164,155 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
 void _groupMembers() {
-  if (widget.chat.isGroupChat) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (context) {
-        return Align(
-          alignment: Alignment.centerRight,
-          child: FractionallySizedBox(
-            widthFactor: 0.75, // 75% width of screen
-            child: Container(
-              height: MediaQuery.of(context).size.height,
-              color: Colors.white,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppBar(
-                    automaticallyImplyLeading: false,
-                    title: Text('Group Members'),
-                    actions: [
-                      IconButton(
-                        icon: Icon(Icons.close),
-                        onPressed: () => Navigator.of(context).pop(),
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Text(
-                      'Group Name: ${widget.chat.groupName}',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Text(
-                      'Admin ID: ${widget.chat.adminId}',
-                      style: TextStyle(fontSize: 16, color: Colors.grey[600]),
-                    ),
-                  ),
-                  const Divider(),
-                  const Expanded(
-                    child: Center(
-                      child: Text(
-                        'List of group members goes here...',
-                        style: TextStyle(fontSize: 16, color: Colors.grey),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  } else {
+  if (!widget.chat.isGroupChat) {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('This is not a group chat')),
     );
+    return;
   }
+  showModalBottomSheet(
+    useSafeArea: true,
+    context: context,
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
+    builder: (context) {
+      return Align(
+        alignment: Alignment.centerRight,
+        child: FractionallySizedBox(
+          widthFactor: 0.75,
+          child: ClipRRect(
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+            child: Container(
+              color: Colors.white,
+              child: FutureBuilder(
+                future: Future.value(widget.chat.users),
+                builder: (context, AsyncSnapshot<List<UserModel>> snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+
+                  final users = snapshot.data!;
+                  final adminUser = users.firstWhere(
+                    (u) => u.id == widget.chat.adminId,
+                    orElse: () => UserModel(id: '', name: 'Unknown', email: ''),
+                  );
+
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppBar(
+                        automaticallyImplyLeading: false,
+                        title: const Text('Group Members'),
+                        actions: [
+                          IconButton(
+                            icon: const Icon(Icons.close),
+                            onPressed: () => Navigator.of(context).pop(),
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Text(
+                          'Group Name: ${widget.chat.groupName ?? 'Unnamed'}',
+                          style: const TextStyle(fontSize: 18),
+                        ),
+                      ),
+                      const Divider(),
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: users.length,
+                          itemBuilder: (context, index) {
+                            final user = users[index];
+                            return ListTile(
+                              leading: CircleAvatar(
+                                backgroundColor: Colors.blueGrey[200],
+                                child: Text(
+                                  user.name.isNotEmpty
+                                      ? user.name.trim().split(' ').first[0].toUpperCase()
+                                      : '?',
+                                  style: const TextStyle(color: Colors.white),
+                                ),
+                              ),
+                              title: Text(user.name),
+                              subtitle: Text(user.email ?? 'No email available'),
+                              trailing: user.id == widget.chat.adminId
+                                  ? Container(
+                                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                      decoration: BoxDecoration(
+                                        color: const Color.fromARGB(255, 199, 114, 214),
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      child: const Text('Admin', style: TextStyle(fontSize: 12)),
+                                    )
+                                  : null,
+                            );
+                          },
+                        ),
+                      ),
+                      if (widget.currentUserId == widget.chat.adminId)
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: ElevatedButton.icon(
+                            icon: const Icon(Icons.person_add),
+                            label: const Text("Add Member"),
+                            onPressed: () async {
+                              final allUsers = await ChatService().getAllUsers();
+
+                              final existingIds = users.map((u) => u.id).toSet();
+                              final availableUsers = allUsers.where((u) => !existingIds.contains(u.id)).toList();
+
+                              showModalBottomSheet(
+                                context: context,
+                                useSafeArea: true,
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+                                ),
+                                builder: (context) {
+                                  return ListView.builder(
+                                    itemCount: availableUsers.length,
+                                    itemBuilder: (context, index) {
+                                      final user = availableUsers[index];
+                                      return ListTile(
+                                        leading: const Icon(Icons.person),
+                                        title: Text(user.name),
+                                        subtitle: Text(user.email ?? 'No email available'),
+                                        onTap: () async {
+                                          Navigator.of(context).pop();
+                                          try {
+                                            await ChatService().addUserToGroupChat(
+                                              chatId: widget.chat.id,
+                                              newUser: user,
+                                              currentUserId: widget.currentUserId,
+                                            );
+                                            ScaffoldMessenger.of(context).showSnackBar(
+                                              SnackBar(content: Text('${user.name} added to the group')),
+                                            );
+                                          } catch (e) {
+                                            ScaffoldMessenger.of(context).showSnackBar(
+                                              SnackBar(content: Text('Error: ${e.toString()}')),
+                                            );
+                                          }
+                                        },
+                                      );
+                                    },
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                    ],
+                  );
+                },
+              ),
+            ),
+          ),
+        ),
+      );
+    },
+  );
 }
-
-
-  Future<void> _uploadFileAndSendMessage(
+ Future<void> _uploadFileAndSendMessage(
       File file, String fileName, String fileType) async {
     if (!mounted) return;
 
@@ -406,6 +489,9 @@ void _groupMembers() {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: widget.chat.isGroupChat
+            ? const Color.fromARGB(255, 199, 114, 214)
+            : Theme.of(context).primaryColor,
         title: Row(
           children: [
             CircleAvatar(
@@ -505,8 +591,7 @@ void _groupMembers() {
           ),
           IconButton(
             icon: const Icon(Icons.more_vert),
-            onPressed: _groupMembers
-,
+            onPressed: _groupMembers,
           ),
         ],
       ),

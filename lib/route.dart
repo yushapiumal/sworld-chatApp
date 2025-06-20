@@ -8,6 +8,7 @@ import 'package:sworld_flutter/page/chat_app/screens/sticker_screen.dart';
 import 'package:sworld_flutter/page/flashScreen.dart';
 import 'package:sworld_flutter/page/home.dart';
 import 'package:sworld_flutter/page/login.dart';
+import 'package:sworld_flutter/page/zoom_app.dart/zoom.dart';
 
 import 'page/googleAthenticator.dart';
 
@@ -18,6 +19,8 @@ final Map<String, WidgetBuilder> routes = {
   Authenticator.routeName: (context) => const Authenticator(),
   OTPVerificationScreen.routeName: (context) => const OTPVerificationScreen(),
   CallScreen.routeName: (context) => const CallScreen(callID: ''),
+  ZoomScreen.routeName: (context) => const ZoomScreen(),
+
   ChatScreen.routeName: (context) {
     final args = ModalRoute.of(context)!.settings.arguments as ChatScreenArguments;
     return ChatScreen(
