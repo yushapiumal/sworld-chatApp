@@ -1,0 +1,20 @@
+GET http://localhost:3000/zoom/auth-url
+
+GET http://localhost:3000/zoom/oauth-callback?code={{authorization_code}}
+
+POST http://localhost:3000/zoom/createMeeting
+
+GET http://localhost:3000/zoom/listMeetings
+
+GET http://localhost:3000/zoom/getMeeting/{{meetingId}}
+
+PATCH http://localhost:3000/zoom/updateMeeting/{{meetingId}}
+
+DELETE http://localhost:3000/zoom/deleteMeeting/{{meetingId}}
+
+GET http://localhost:3000/zoom/getParticipants/{{meetingId}}
+
+GET http://localhost:3000/zoom/listRecordings
+
+DELETE http://localhost:3000/zoom/deleteRecording/{{recordingId}}
+
